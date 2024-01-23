@@ -27,7 +27,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className='navbar-end flex gap-4'>
-        <button className="btn btn-outline btn-accent">Default</button>
+        <button className="btn btn-outline btn-accent">Log in</button>
         <button className="btn btn-accent">Sign up</button>
       </div>
     </div>
