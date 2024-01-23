@@ -14,12 +14,12 @@ const Navbar = () => {
         <div className='breadcrumbs'>
           <ul>
             <li>
-              <Link href={'/'}>
+              <Link href={'/'} className='text-white'>
                 Home
               </Link>
             </li> 
             <li>
-              <Link href={'/exercises'}>
+              <Link href={'/exercises'} className='text-white'>
                 Exercises
               </Link>
             </li> 

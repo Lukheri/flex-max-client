@@ -35,7 +35,7 @@ const Exercises = () => {
     }
   
     useEffect(() => {
-      getExercises().then(() => setIsLoading(false))
+        getExercises().then(() => setIsLoading(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[muscle, type, difficulty])
   
@@ -66,7 +66,7 @@ const Exercises = () => {
     }
 
     return (
-        <div className='flex flex-col justify-center p-6'>
+        <div className='flex flex-col justify-center p-6 gap-5'>
             <div className='flex flex-col items-center justify-center'>
                 <div className='flex w-full justify-center items-center gap-2'>
                     <input type="text" placeholder="Search Exercise" className={`input input-bordered input-accent w-1/2`} onChange={handleFilterChange}/>
@@ -103,7 +103,7 @@ const Exercises = () => {
             </div>
 
             <div className='flex flex-wrap gap-4 justify-around items-center'>
-                {exercises.map((exercise: Exercise, index:number) => <ExerciseCard key={exercise.name+index} exercise={exercise} />)}
+                {exercises.map((exercise: Exercise, index:number) => <ExerciseCard key={exercise.name+index} exercise={exercise} isLoading={isLoading} />)}
             </div>
             
         </div>
