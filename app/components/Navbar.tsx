@@ -27,8 +27,8 @@ const Navbar = () => {
         </div>
       </div>
       <div className='navbar-end flex gap-4'>
-        <button className="btn btn-outline btn-accent">Log in</button>
-        <button className="btn btn-accent">Sign up</button>
+        <Link href={'/login'} className="btn btn-outline btn-accent">Log in</Link>
+        <Link href={'/register'} className="btn btn-accent">Sign up</Link>
       </div>
     </div>
   )
