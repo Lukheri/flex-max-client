@@ -102,9 +102,14 @@ const Exercises = () => {
                 </div>
             </div>
 
-            <div className='flex flex-wrap gap-4 justify-around items-center'>
-                {exercises.map((exercise: Exercise, index:number) => <ExerciseCard key={exercise.name+index} exercise={exercise} isLoading={isLoading} />)}
-            </div>
+            {exercises.length ? 
+                <div className='flex flex-wrap gap-4 justify-around items-center'>
+                    {exercises.map((exercise: Exercise, index:number) => <ExerciseCard key={exercise.name+index} exercise={exercise} isLoading={isLoading} />)}
+                </div> : 
+                <div>
+                    <div className='text-[44px]'>No exercises found...</div>
+                </div>
+            }
             
         </div>
     )
