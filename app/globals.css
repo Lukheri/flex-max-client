@@ -12,6 +12,16 @@
   font-family: 'Montserrat', sans-serif
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  }
+
 .mirror-img {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);

@@ -1,46 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-
-type Exercise = {
-    name: string;
-    type: string;
-    muscle: string;
-    equipment: string;
-    difficulty: string;
-    instructions: string;
-  };
+import { Exercise } from '../constants/types'
+import { exerciseTypes, muscleGroups, difficultyLevels } from '../constants/arrays';
+import ExerciseCard from '../components/ExerciseCard';
   
-const exerciseTypes: string[] = [
-    'cardio',
-    'olympic_weightlifting',
-    'plyometrics',
-    'powerlifting',
-    'strength',
-    'stretching',
-    'strongman',
-  ];
-  
-const muscleGroups: string[] = [
-    'abdominals',
-    'abductors',
-    'adductors',
-    'biceps',
-    'calves',
-    'chest',
-    'forearms',
-    'glutes',
-    'hamstrings',
-    'lats',
-    'lower_back',
-    'middle_back',
-    'neck',
-    'quadriceps',
-    'traps',
-    'triceps',
-  ];
-  
-const difficultyLevels: string[] = ['beginner', 'intermediate', 'expert'];
-
 const Exercises = () => {
     const [muscle, setMuscle] = useState<string>("")
     const [type, setType] = useState<string>("")
@@ -123,7 +86,7 @@ const Exercises = () => {
                         <div tabIndex={0} role="button" className="btn m-1">Type</div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                             {exerciseTypes.map((exerciseType: string, index: number) => 
-                                <li key={exerciseType + index} onClick={() => handleDifficultyChange(exerciseType)}><a>{exerciseType}</a></li>
+                                <li key={exerciseType + index} onClick={() => handleTypeChange(exerciseType)}><a>{exerciseType}</a></li>
                             )}
                         </ul>
                     </div>
@@ -131,7 +94,7 @@ const Exercises = () => {
                         <div tabIndex={0} role="button" className="btn m-1">Difficulty</div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                             {difficultyLevels.map((difficultyLevel: string, index: number) => 
-                                <li key={difficultyLevel + index} onClick={() => handleMuscleChange(difficultyLevel)}><a>{difficultyLevel}</a></li>
+                                <li key={difficultyLevel + index} onClick={() => handleDifficultyChange(difficultyLevel)}><a>{difficultyLevel}</a></li>
                             )}
                         </ul>
                     </div>
@@ -139,8 +102,8 @@ const Exercises = () => {
                 </div>
             </div>
 
-            <div>
-                {exercises.map((exercise: Exercise, index:number) => <div key={exercise.name + index}>{exercise.name}</div>)}
+            <div className='flex flex-wrap gap-4 justify-around items-center'>
+                {exercises.map((exercise: Exercise, index:number) => <ExerciseCard key={exercise.name+index} exercise={exercise} />)}
             </div>
             
         </div>
