@@ -8,3 +8,11 @@
   --background-end-rgb: 255, 255, 255;
 } */
 
+* {
+  font-family: 'Montserrat', sans-serif
+}
+
+.mirror-img {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
