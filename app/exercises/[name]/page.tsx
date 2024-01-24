@@ -1,7 +1,7 @@
 'use client'
-import ExerciseCard from '@/app/components/ExerciseCard'
+import ExerciseCard from '@/components/ExerciseCard'
 import { Exercise } from '@/app/constants/types'
-import { useExerciseStore } from '@/app/store/exercise'
+import { useExerciseStore } from '@/stores/exercise'
 import React, { useEffect, useState } from 'react'
 
 const ExerciseDetails = ({ params }: { params: { name: string } }) => {

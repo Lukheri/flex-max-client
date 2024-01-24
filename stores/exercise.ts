@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { Exercise } from "../constants/types";
+import { Exercise } from "../app/constants/types";
 
 interface ExerciseState {
     exercise: Exercise,

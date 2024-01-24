@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
-import { Exercise } from '../constants/types'
-import { useExerciseStore } from '../store/exercise'
+import { Exercise } from '../app/constants/types'
+import { useExerciseStore } from '../stores/exercise'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 

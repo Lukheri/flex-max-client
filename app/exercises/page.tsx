@@ -6,7 +6,7 @@ import {
   muscleGroups,
   difficultyLevels,
 } from '../constants/arrays'
-import ExerciseCard from '../components/ExerciseCard'
+import ExerciseCard from '../../components/ExerciseCard'
 
 const Exercises = () => {
   const [muscle, setMuscle] = useState<string>('')
