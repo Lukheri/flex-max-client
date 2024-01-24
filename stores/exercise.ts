@@ -15,7 +15,7 @@ export const useExerciseStore = create<ExerciseState>()((set) => ({
         difficulty: "",
         instructions: "",
     },    
-    setExercise : (exercise: Exercise) => set({exercise})
+    setExercise: (exercise: Exercise) => set({exercise})
 }))
 
 
