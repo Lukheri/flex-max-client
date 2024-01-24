@@ -2,11 +2,15 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import MailChecker from 'mailchecker'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [validationError, setValidationError] = useState<string>('')
+
+  const router = useRouter()
 
   const handleEmailChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -20,21 +24,39 @@ const LoginPage = () => {
     setPassword(event.target.value as string)
   }
 
-  // const validateEmail = async () => {
-  //     const { validFormat, validSmtp, validMx } = await verifyEmail({ emailAddress: email, verifyMx: true, verifySmtp: true, timeout: 3000 });
-  // }
+  const handleLoginClick = async (event: any) => {
+    event.preventDefault()
 
-  const handleLoginClick = async () => {
     if (!email || !password) {
       setValidationError('All fields are required')
     } else if (!MailChecker.isValid(email)) {
       setValidationError('Invalid email')
     }
+
+    try {
+      const res = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      })
+
+      if (res && res.error) {
+        setValidationError('Invalid Credentials')
+        return
+      }
+
+      router.replace('/')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
     <div className='flex h-[calc(100vh-72px)] items-center justify-around'>
-      <div className='card glass relative h-full w-full bg-slate-400 p-8 pb-16 text-black shadow-xl md:h-fit md:w-1/2'>
+      <form
+        onSubmit={handleLoginClick}
+        className='card glass relative h-full w-full bg-slate-400 p-8 pb-16 text-black shadow-xl md:h-fit md:w-1/2'
+      >
         <div className='card-body justify-center'>
           <h1 className='card-title capitalize'>Login</h1>
           <input
@@ -51,9 +73,7 @@ const LoginPage = () => {
           />
         </div>
         <div className='card-actions justify-center'>
-          <button onClick={handleLoginClick} className='btn btn-accent'>
-            Login
-          </button>
+          <button className='btn btn-accent'>Login</button>
         </div>
 
         {validationError && (
@@ -84,7 +104,7 @@ const LoginPage = () => {
             here
           </Link>
         </p>
-      </div>
+      </form>
     </div>
   )
 }
