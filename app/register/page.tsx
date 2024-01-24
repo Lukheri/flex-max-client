@@ -79,7 +79,7 @@ const RegisterPage = () => {
     <div className='flex h-[calc(100vh-72px)] items-center justify-around'>
       <form
         onSubmit={handleRegClick}
-        className='card glass relative w-1/3 bg-slate-400 p-8 pb-16 text-black shadow-xl'
+        className='card glass relative h-full w-full bg-slate-400 p-8 pb-16 text-black shadow-xl md:h-fit md:w-1/2'
       >
         <div className='card-body justify-center'>
           <h1 className='card-title capitalize'>Register</h1>
