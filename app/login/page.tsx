@@ -45,7 +45,7 @@ const LoginPage = () => {
           />
           <input
             onChange={handlePasswordChange}
-            type='text'
+            type='password'
             placeholder='Password'
             className='input input-bordered input-accent w-full'
           />

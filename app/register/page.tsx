@@ -53,7 +53,7 @@ const RegisterPage = () => {
         const form = event.target
         form.reset()
       } else {
-        console.log('Failed')
+        console.log('Register Failed')
       }
     } catch (error) {
       console.log('Error in registration: ', error)
@@ -82,7 +82,7 @@ const RegisterPage = () => {
           />
           <input
             onChange={handlePasswordChange}
-            type='text'
+            type='password'
             placeholder='Password'
             className='input input-bordered input-accent w-full'
           />
