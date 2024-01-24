@@ -1,34 +1,38 @@
 import React from 'react'
-import Logo from "../assets/Logo_image.png"
-import Image from "next/image";
-import Link from 'next/link';
+import Logo from '../assets/Logo_image.png'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const Navbar = () => {
   return (
     <div className='navbar bg-slate-900 p-3'>
       <div className='navbar-start flex gap-4'>
         <Link href={'/'}>
-          <Image className='rounded-lg' src={Logo} alt="logo" height={48} />
+          <Image className='rounded-lg' src={Logo} alt='logo' height={48} />
         </Link>
-        
+
         <div className='breadcrumbs'>
           <ul>
             <li>
               <Link href={'/'} className='text-white'>
                 Home
               </Link>
-            </li> 
+            </li>
             <li>
               <Link href={'/exercises'} className='text-white'>
                 Exercises
               </Link>
-            </li> 
+            </li>
           </ul>
         </div>
       </div>
       <div className='navbar-end flex gap-4'>
-        <Link href={'/login'} className="btn btn-outline btn-accent">Log in</Link>
-        <Link href={'/register'} className="btn btn-accent">Sign up</Link>
+        <Link href={'/login'} className='btn btn-outline btn-accent'>
+          Log in
+        </Link>
+        <Link href={'/register'} className='btn btn-accent'>
+          Sign up
+        </Link>
       </div>
     </div>
   )
