@@ -27,17 +27,45 @@ const RegisterPage = () => {
     setPassword(event.target.value as string)
   }
 
-  const handleRegClick = async () => {
+  const handleRegClick = async (event: any) => {
+    event.preventDefault()
+
     if (!email || !password || !userName) {
       setValidationError('All fields are required')
-    }
-    if (!MailChecker.isValid(email)) {
+    } else if (!MailChecker.isValid(email)) {
       setValidationError('Invalid email')
     }
+
+    try {
+      const res = await fetch('api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userName,
+          email,
+          password,
+        }),
+      })
+
+      if (res.ok) {
+        const form = event.target
+        form.reset()
+      } else {
+        console.log('Failed')
+      }
+    } catch (error) {
+      console.log('Error in registration: ', error)
+    }
   }
+
   return (
     <div className='flex h-[calc(100vh-72px)] items-center justify-around'>
-      <div className='card glass relative w-1/3 bg-slate-400 p-8 pb-16 text-black shadow-xl'>
+      <form
+        onSubmit={handleRegClick}
+        className='card glass relative w-1/3 bg-slate-400 p-8 pb-16 text-black shadow-xl'
+      >
         <div className='card-body justify-center'>
           <h1 className='card-title capitalize'>Register</h1>
           <input
@@ -60,9 +88,7 @@ const RegisterPage = () => {
           />
         </div>
         <div className='card-actions justify-center'>
-          <button onClick={handleRegClick} className='btn btn-accent'>
-            Register
-          </button>
+          <button className='btn btn-accent'>Register</button>
         </div>
         {validationError && (
           <div
@@ -91,7 +117,7 @@ const RegisterPage = () => {
             here
           </Link>
         </p>
-      </div>
+      </form>
     </div>
   )
 }
