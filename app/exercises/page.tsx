@@ -85,7 +85,7 @@ const Exercises = () => {
             onChange={handleFilterChange}
           />
           <button
-            className={`btn btn-accent  ${isLoading ? 'loading loading-spinner' : ''}`}
+            className={`btn btn-accent ${isLoading ? 'loading loading-spinner' : ''}`}
             onClick={handleSearchClick}
           >
             Search

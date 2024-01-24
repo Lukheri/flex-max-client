@@ -2,12 +2,16 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import MailChecker from 'mailchecker'
+import { useRouter } from 'next/navigation'
 
 const RegisterPage = () => {
   const [email, setEmail] = useState<string>('')
   const [userName, setUserName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [validationError, setValidationError] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const router = useRouter()
 
   const handleEmailChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -29,6 +33,7 @@ const RegisterPage = () => {
 
   const handleRegClick = async (event: any) => {
     event.preventDefault()
+    setIsLoading(true)
 
     if (!email || !password || !userName) {
       setValidationError('All fields are required')
@@ -66,6 +71,8 @@ const RegisterPage = () => {
 
       if (res.ok) {
         const form = event.target
+        setValidationError('')
+        router.push('/login')
         form.reset()
       } else {
         console.log('Register Failed')
@@ -78,7 +85,9 @@ const RegisterPage = () => {
   return (
     <div className='flex h-[calc(100vh-72px)] items-center justify-around'>
       <form
-        onSubmit={handleRegClick}
+        onSubmit={(event) => {
+          handleRegClick(event).then(() => setIsLoading(false))
+        }}
         className='card glass relative h-full w-full bg-slate-400 p-8 pb-16 text-black shadow-xl md:h-fit md:w-1/2'
       >
         <div className='card-body justify-center'>
@@ -103,7 +112,11 @@ const RegisterPage = () => {
           />
         </div>
         <div className='card-actions justify-center'>
-          <button className='btn btn-accent'>Register</button>
+          <button
+            className={`btn btn-accent ${isLoading ? 'loading loading-spinner' : ''}`}
+          >
+            Register
+          </button>
         </div>
         {validationError && (
           <div
