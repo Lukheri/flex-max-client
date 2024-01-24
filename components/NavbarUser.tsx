@@ -7,7 +7,6 @@ import { UserIcon } from 'lucide-react'
 const NavbarUser = () => {
   const { data: session } = useSession()
 
-  console.log(session)
   return (
     <>
       {!!session ? (
