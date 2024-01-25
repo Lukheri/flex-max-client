@@ -15,7 +15,7 @@ const Routines = () => {
 
   const getRoutines = async () => {
     try {
-      const response = await fetch('api/routine/get-routines', {
+      const response = await fetch('api/routine', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -35,6 +35,7 @@ const Routines = () => {
 
   useEffect(() => {
     getRoutines()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleNameChange = (
@@ -59,7 +60,7 @@ const Routines = () => {
     addRoutine(newRoutine)
 
     try {
-      const createRoutine = await fetch('api/routine/create', {
+      const createRoutine = await fetch('api/routine', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
