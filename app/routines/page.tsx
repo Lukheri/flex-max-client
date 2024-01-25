@@ -6,6 +6,7 @@ import { useRoutineStore } from '@/stores/routine'
 import RoutineCard from '@/components/RoutineCard'
 import { Routine } from '../constants/types'
 import { useSession } from 'next-auth/react'
+import { toast } from 'react-toastify'
 
 const Routines = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -87,6 +88,9 @@ const Routines = () => {
                     getRoutines()
                     setName('')
                     setDescription('')
+                    toast.success('Successfully Created Routine!', {
+                      position: 'bottom-right',
+                    })
                   })
                 }
                 className='btn btn-accent'

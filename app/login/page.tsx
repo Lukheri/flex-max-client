@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import MailChecker from 'mailchecker'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -45,6 +46,9 @@ const LoginPage = () => {
         return
       }
 
+      toast.success('Successfully logged in!', {
+        position: 'bottom-right',
+      })
       router.replace('/')
     } catch (error) {
       console.log(error)

@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import { Routine } from '@/app/constants/types'
 import { useExerciseStore } from '@/stores/exercise'
 import { PlusSquare } from 'lucide-react'
+import { toast } from 'react-toastify'
 
 const AddExerciseModal = () => {
   const [name, setName] = useState<string>('')
@@ -88,6 +89,9 @@ const AddExerciseModal = () => {
                   getRoutines()
                   setName('')
                   setDescription('')
+                  toast.success('Successfully created routine!', {
+                    position: 'bottom-right',
+                  })
                 })
               }
               className='btn w-full'
@@ -103,7 +107,11 @@ const AddExerciseModal = () => {
                 key={routine.name + index}
                 className='btn w-full bg-slate-600'
                 onClick={() => {
-                  handleAddExercise(routine)
+                  handleAddExercise(routine).then(() => {
+                    toast.success('Successfully added exercise!', {
+                      position: 'bottom-right',
+                    })
+                  })
                 }}
               >
                 {routine.name}

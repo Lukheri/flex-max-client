@@ -4,6 +4,7 @@ import { Routine } from '../app/constants/types'
 import { useRouter } from 'next/navigation'
 import { useRoutineStore } from '@/stores/routine'
 import Link from 'next/link'
+import { toast } from 'react-toastify'
 
 const RoutineCard = ({
   routine,
@@ -49,7 +50,12 @@ const RoutineCard = ({
             <div className='card-actions justify-end'>
               <button
                 onClick={() =>
-                  deleteRoutine().then(() => setLoadingRoutines(false))
+                  deleteRoutine().then(() => {
+                    setLoadingRoutines(false)
+                    toast.success('Successfully deleted routine!', {
+                      position: 'bottom-right',
+                    })
+                  })
                 }
                 className={`btn btn-outline btn-error ${loadingRoutines ? 'loading loading-spinner' : ''}`}
               >
