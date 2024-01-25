@@ -37,12 +37,33 @@ const AddExerciseModal = () => {
 
     await addRoutine(newRoutine)
   }
+
+  const handleAddExercise = async (routine: any) => {
+    const payload = {
+      name: routine.name,
+      description: routine.description,
+      exercises: [...routine.exercises, exercise],
+    }
+    try {
+      const updateRoutine = await fetch(`/api/routine/${routine['_id']}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+    } catch (error) {
+      console.log('Error updating routine', error)
+    }
+  }
+
   return (
     <>
-      <div className='glass modal-box mb-4 w-1/3 bg-slate-400'>
+      <div className='glass modal-box mb-4 flex w-[40%] flex-col gap-4 bg-slate-400'>
+        <h3 className='text-2xl text-black'>Add {exercise.name}</h3>
         <div className='collapse bg-slate-400'>
           <input type='checkbox' />
-          <div className='collapse-title flex items-center justify-around bg-slate-400 text-xl font-medium'>
+          <div className='collapse-title flex items-center justify-around bg-slate-400 text-xl font-medium text-black'>
             <PlusSquare />
             Create new routine
           </div>
@@ -69,18 +90,21 @@ const AddExerciseModal = () => {
                   setDescription('')
                 })
               }
-              className='btn'
+              className='btn w-full'
             >
               Create
             </button>
           </div>
         </div>
-        <div className='mt-5 flex flex-col gap-4'>
+        <div className='flex flex-col gap-4'>
           {!!userRoutines ? (
             userRoutines.map((routine: any, index: number) => (
               <button
                 key={routine.name + index}
                 className='btn w-full bg-slate-600'
+                onClick={() => {
+                  handleAddExercise(routine)
+                }}
               >
                 {routine.name}
               </button>

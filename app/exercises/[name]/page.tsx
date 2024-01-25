@@ -3,6 +3,7 @@ import ExerciseCard from '@/components/ExerciseCard'
 import { Exercise } from '@/app/constants/types'
 import { useExerciseStore } from '@/stores/exercise'
 import React, { useEffect, useState } from 'react'
+import AddExerciseModal from '@/components/AddExerciseModal'
 
 const ExerciseDetails = ({ params }: { params: { name: string } }) => {
   const { exercise } = useExerciseStore()
@@ -50,7 +51,7 @@ const ExerciseDetails = ({ params }: { params: { name: string } }) => {
   }, [])
 
   return (
-    <>
+    <div>
       <div className='flex justify-center p-12'>
         <div className='card glass max-w-[50%] bg-slate-400 p-8 text-black shadow-xl'>
           <div className='card-body'>
@@ -74,10 +75,24 @@ const ExerciseDetails = ({ params }: { params: { name: string } }) => {
             </p>
           </div>
           <div className='card-actions justify-end'>
-            <button className='btn btn-neutral'>Add exercise to routine</button>
+            <button
+              onClick={() => {
+                ;(
+                  document.getElementById(
+                    `add_exercise_modal_${exercise.name}`,
+                  ) as any
+                ).showModal()
+              }}
+              className='btn btn-neutral'
+            >
+              Add exercise to routine
+            </button>
           </div>
         </div>
       </div>
+      <dialog id={`add_exercise_modal_${exercise.name}`} className='modal'>
+        <AddExerciseModal />
+      </dialog>
       <div className='p-12'>
         <div className='text-[44px]'>
           Exercises that hit the same muscle group
@@ -93,7 +108,7 @@ const ExerciseDetails = ({ params }: { params: { name: string } }) => {
             ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

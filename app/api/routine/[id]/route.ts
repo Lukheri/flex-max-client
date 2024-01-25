@@ -30,3 +30,18 @@ export async function GET(req: NextRequest,{ params }: { params: { id: number } 
         )
     }
 }
+
+export async function PUT(req: NextRequest,{ params }: { params: { id: number } } ){
+    try {
+        const {name, description, exercises} = await req.json()
+        await connectMongoDB()
+
+        const data = await Routine.findByIdAndUpdate(params.id,{name, description, exercises}, {new: true})
+        
+        return NextResponse.json({message: "Routine updated"}, {status:201})
+    } catch (error) {
+        return NextResponse.json(
+            {message: "Error updating routine"}, {status: 500}
+        )
+    }
+}
