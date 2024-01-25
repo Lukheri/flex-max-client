@@ -32,6 +32,7 @@ const Exercises = () => {
     setUserRoutines(
       routines.filter((routine) => routine.userEmail === session?.user?.email),
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [routines, session?.user?.email])
 
   const getExercises = async () => {

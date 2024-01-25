@@ -51,6 +51,7 @@ const ExerciseDetails = ({ params }: { params: { name: string } }) => {
 
   useEffect(() => {
     getExercises().then(() => setIsLoading(false))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
