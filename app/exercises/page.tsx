@@ -1,12 +1,14 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { Exercise } from '../constants/types'
 import {
   exerciseTypes,
   muscleGroups,
   difficultyLevels,
 } from '../constants/arrays'
 import ExerciseCard from '../../components/ExerciseCard'
+import { useRoutineStore } from '@/stores/routine'
+import { useSession } from 'next-auth/react'
+import { Exercise, Routine } from '@/app/constants/types'
 
 const Exercises = () => {
   const [muscle, setMuscle] = useState<string>('')
@@ -15,6 +17,22 @@ const Exercises = () => {
   const [searchFilter, setSearchFilter] = useState<string>('')
   const [exercises, setExercises] = useState<Exercise[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const { routines, addRoutine, getRoutines, userRoutines, setUserRoutines } =
+    useRoutineStore()
+
+  const { data: session } = useSession()
+
+  useEffect(() => {
+    getRoutines()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    setUserRoutines(
+      routines.filter((routine) => routine.userEmail === session?.user?.email),
+    )
+  }, [routines, session?.user?.email])
 
   const getExercises = async () => {
     setIsLoading(true)

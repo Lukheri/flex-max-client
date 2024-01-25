@@ -4,6 +4,8 @@ import { Exercise, Routine } from "../app/constants/types";
 interface RoutineState {
     routines: any[],
     loadingRoutines: boolean,
+    userRoutines: any[]
+    setUserRoutines: any
     setLoadingRoutines: (loading: boolean) => void
     selectedRoutine: Routine
     addRoutine: any
@@ -14,6 +16,8 @@ interface RoutineState {
 export const useRoutineStore = create<RoutineState>()((set) => ({
     routines: [],
     loadingRoutines: false,
+    userRoutines: [],
+    setUserRoutines: (routines: Routine[]) => set({userRoutines: routines}),
     setLoadingRoutines: (loading: boolean) => set({loadingRoutines: loading}),
     selectedRoutine: {
         name: "",

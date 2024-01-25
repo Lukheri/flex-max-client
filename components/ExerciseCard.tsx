@@ -3,6 +3,7 @@ import React from 'react'
 import { Exercise } from '../app/constants/types'
 import { useExerciseStore } from '../stores/exercise'
 import { useRouter } from 'next/navigation'
+import AddExerciseModal from './AddExerciseModal'
 import Link from 'next/link'
 
 const ExerciseCard = ({
@@ -30,12 +31,28 @@ const ExerciseCard = ({
               {exercise.instructions}
             </p>
             <div className='card-actions justify-end'>
-              <button className='btn btn-outline text-black'>Add</button>
+              {/* Open the modal using document.getElementById('ID').showModal() method */}
+              <button
+                className='btn btn-outline text-black'
+                onClick={() => {
+                  ;(
+                    document.getElementById(
+                      `add_exercise_modal_${exercise.name}`,
+                    ) as any
+                  ).showModal()
+                  setExercise(exercise)
+                }}
+              >
+                Add
+              </button>
               <button onClick={handleViewExercise} className='btn btn-neutral'>
                 View Exercise
               </button>
             </div>
           </div>
+          <dialog id={`add_exercise_modal_${exercise.name}`} className='modal'>
+            <AddExerciseModal />
+          </dialog>
         </div>
       ) : (
         <div className='skeleton h-[250px] w-96 bg-slate-400'></div>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useRoutineStore } from '@/stores/routine'
 import { Exercise, Routine } from '@/app/constants/types'
 import ExerciseCard from '@/components/ExerciseCard'
+import Link from 'next/link'
 
 const RoutineDetails = ({ params }: { params: { id: any } }) => {
   const [routine, setRoutine] = useState<Routine>()
@@ -30,6 +31,7 @@ const RoutineDetails = ({ params }: { params: { id: any } }) => {
 
   useEffect(() => {
     getRoutine()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id])
 
   return (
@@ -39,6 +41,11 @@ const RoutineDetails = ({ params }: { params: { id: any } }) => {
           <div className='card-body'>
             <h1 className='card-title capitalize'>{routine?.name}</h1>
             <p>{routine?.description}</p>
+            <div className='card-actions justify-end'>
+              <Link href={'/exercises'} className='btn btn-neutral'>
+                Add more exercises
+              </Link>
+            </div>
           </div>
         </div>
       </div>
