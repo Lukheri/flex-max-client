@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import add from '../assets/add.png'
 import { useRoutineStore } from '@/stores/routine'
@@ -11,7 +11,31 @@ const Routines = () => {
   const [name, setName] = useState<string>('')
   const [description, setDescription] = useState<string>('')
 
-  const { routines, addRoutine } = useRoutineStore()
+  const { routines, addRoutine, setRoutines } = useRoutineStore()
+
+  const getRoutines = async () => {
+    try {
+      const response = await fetch('api/routine/get-routines', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (response.status === 201) {
+        const data = await response.json()
+        setRoutines(data.data)
+      } else {
+        throw new Error('Request failed')
+      }
+    } catch (error) {
+      console.log('Error fetching create routine', error)
+    }
+  }
+
+  useEffect(() => {
+    getRoutines()
+  }, [])
 
   const handleNameChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,

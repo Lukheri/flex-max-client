@@ -5,6 +5,7 @@ interface RoutineState {
     routines: Routine[],
     selectedRoutine: Routine
     addRoutine: (routine: Routine) => void
+    setRoutines: (routines: Routine[]) => void
 }
 
 export const useRoutineStore = create<RoutineState>()((set) => ({
@@ -14,7 +15,8 @@ export const useRoutineStore = create<RoutineState>()((set) => ({
         description: "",
         exercises: []
     },
-    addRoutine: (routine: Routine) => set((state) => ({routines: [...state.routines, routine]}))
+    addRoutine: (routine: Routine) => set((state) => ({routines: [...state.routines, routine]})),
+    setRoutines: (routines: Routine[]) => set({routines})
 }))
 
 

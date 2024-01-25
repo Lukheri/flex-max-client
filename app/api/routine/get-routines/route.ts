@@ -4,15 +4,13 @@ import { connectMongoDB } from "@/lib/mongodb";
 import Routine from "@/models/routine"
 // import bcrypt from 'bcryptjs'
 
-export async function POST(req: { json: () => PromiseLike<{ name: string; description: string; exercises: [] }> | { name: string; description: string; exercises: [] }}){
+export async function GET(){
     try {
-        const {name, description, exercises} = await req.json()
-
         await connectMongoDB()
 
-        await Routine.create({name, description, exercises})
+        const data = await Routine.find({})
         
-        return NextResponse.json({message: "Routine created"}, {status:201})
+        return NextResponse.json({message: "Routine fetched", data: data}, {status:201})
     } catch (error) {
         return NextResponse.json(
             {message: "Error creating routine"}, {status: 500}
