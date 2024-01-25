@@ -8,6 +8,7 @@ interface RoutineState {
     selectedRoutine: Routine
     addRoutine: any
     getRoutines: any
+    viewRoutine: any
 }
 
 export const useRoutineStore = create<RoutineState>()((set) => ({
@@ -45,6 +46,25 @@ export const useRoutineStore = create<RoutineState>()((set) => ({
             if (response.status === 201) {
               const data = await response.json()
               set({routines: data.data})
+            } else {
+              throw new Error('Request failed')
+            }
+          } catch (error) {
+            console.log('Error fetching create routine', error)
+          }
+    },
+    viewRoutine: async (id: any) => {
+        try {
+            const response = await fetch(`api/routine${id}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+      
+            if (response.status === 201) {
+              const data = await response.json()
+              return data.data
             } else {
               throw new Error('Request failed')
             }
