@@ -17,15 +17,19 @@ const Routines = () => {
   const { data: session } = useSession()
 
   useEffect(() => {
-    getRoutines().then(() =>
-      setUserRoutines(
-        routines.filter(
-          (routine) => routine.userEmail === session?.user?.email,
-        ),
-      ),
+    getRoutines()
+    setUserRoutines(
+      routines.filter((routine) => routine.userEmail === session?.user?.email),
     )
+    console.log(routines)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    setUserRoutines(
+      routines.filter((routine) => routine.userEmail === session?.user?.email),
+    )
+  }, [routines, session?.user?.email])
 
   const handleNameChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -84,14 +88,7 @@ const Routines = () => {
               <button
                 onClick={() =>
                   handleCreateRoutine().then(() => {
-                    getRoutines().then(() =>
-                      setUserRoutines(
-                        routines.filter(
-                          (routine) =>
-                            routine.userEmail === session?.user?.email,
-                        ),
-                      ),
-                    )
+                    getRoutines()
                     setName('')
                     setDescription('')
                   })
