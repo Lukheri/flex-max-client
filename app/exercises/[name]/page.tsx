@@ -4,11 +4,14 @@ import { Exercise } from '@/app/constants/types'
 import { useExerciseStore } from '@/stores/exercise'
 import React, { useEffect, useState } from 'react'
 import AddExerciseModal from '@/components/AddExerciseModal'
+import { useSession } from 'next-auth/react'
 
 const ExerciseDetails = ({ params }: { params: { name: string } }) => {
   const { exercise } = useExerciseStore()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [suggested, setSuggested] = useState<Exercise[]>()
+
+  const { data: session } = useSession()
 
   const getExercises = async () => {
     setIsLoading(true)
@@ -83,7 +86,7 @@ const ExerciseDetails = ({ params }: { params: { name: string } }) => {
                   ) as any
                 ).showModal()
               }}
-              className='btn btn-neutral'
+              className={`btn btn-neutral ${!!session && !!session?.user ? '' : 'btn-disabled'}`}
             >
               Add exercise to routine
             </button>

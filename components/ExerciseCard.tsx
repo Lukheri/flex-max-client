@@ -4,6 +4,7 @@ import { Exercise } from '../app/constants/types'
 import { useExerciseStore } from '../stores/exercise'
 import { useRouter } from 'next/navigation'
 import AddExerciseModal from './AddExerciseModal'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 
 const ExerciseCard = ({
@@ -15,6 +16,8 @@ const ExerciseCard = ({
 }) => {
   const { setExercise } = useExerciseStore()
   const router = useRouter()
+
+  const { data: session } = useSession()
 
   const handleViewExercise = () => {
     setExercise(exercise)
@@ -33,7 +36,7 @@ const ExerciseCard = ({
             <div className='card-actions justify-end'>
               {/* Open the modal using document.getElementById('ID').showModal() method */}
               <button
-                className='btn btn-outline text-black'
+                className={`btn btn-outline text-black ${!!session && !!session?.user ? '' : 'btn-disabled'}`}
                 onClick={() => {
                   ;(
                     document.getElementById(
