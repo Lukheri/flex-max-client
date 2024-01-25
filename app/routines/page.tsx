@@ -11,27 +11,7 @@ const Routines = () => {
   const [name, setName] = useState<string>('')
   const [description, setDescription] = useState<string>('')
 
-  const { routines, addRoutine, setRoutines } = useRoutineStore()
-
-  const getRoutines = async () => {
-    try {
-      const response = await fetch('api/routine', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      if (response.status === 201) {
-        const data = await response.json()
-        setRoutines(data.data)
-      } else {
-        throw new Error('Request failed')
-      }
-    } catch (error) {
-      console.log('Error fetching create routine', error)
-    }
-  }
+  const { routines, addRoutine, getRoutines } = useRoutineStore()
 
   useEffect(() => {
     getRoutines()
@@ -57,26 +37,7 @@ const Routines = () => {
       exercises: [],
     }
 
-    addRoutine(newRoutine)
-
-    try {
-      const createRoutine = await fetch('api/routine', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newRoutine),
-      })
-
-      if (createRoutine.ok) {
-        setName('')
-        setDescription('')
-      } else {
-        console.log('Create routine failed Failed')
-      }
-    } catch (error) {
-      console.log('Error fetching create routine', error)
-    }
+    await addRoutine(newRoutine)
   }
 
   return (
@@ -110,7 +71,10 @@ const Routines = () => {
           <div className='modal-action'>
             <form className='flex gap-4' method='dialog'>
               <button className='btn btn-outline btn-error'>Cancel</button>
-              <button onClick={handleCreateRoutine} className='btn btn-accent'>
+              <button
+                onClick={() => handleCreateRoutine().then(() => getRoutines())}
+                className='btn btn-accent'
+              >
                 Create
               </button>
             </form>

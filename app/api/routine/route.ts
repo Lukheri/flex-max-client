@@ -1,8 +1,6 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { connectMongoDB } from "@/lib/mongodb";
-// import User from "@/models/user";
 import Routine from "@/models/routine"
-// import bcrypt from 'bcryptjs'
 
 export async function GET(){
     try {
@@ -18,7 +16,7 @@ export async function GET(){
     }
 }
 
-export async function POST(req: { json: () => PromiseLike<{ name: string; description: string; exercises: [] }> | { name: string; description: string; exercises: [] }}){
+export async function POST(req: NextRequest){
     try {
         const {name, description, exercises} = await req.json()
 

@@ -10,13 +10,37 @@ const RoutineCard = ({
   isLoading,
 }: {
   isLoading: boolean
-  routine: Routine
+  routine: any
 }) => {
+  const {
+    routines,
+    addRoutine,
+    getRoutines,
+    loadingRoutines,
+    setLoadingRoutines,
+  } = useRoutineStore()
   const router = useRouter()
 
   const handleViewRoutine = () => {
     // setRoutine(routine)
     // router.push(`/routines/${routine.name}`)
+    console.log(routine)
+  }
+
+  const deleteRoutine = async () => {
+    setLoadingRoutines(true)
+    try {
+      await fetch(`api/routine/${routine['_id']}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      getRoutines()
+    } catch (error) {
+      console.log('Error fetching create routine', error)
+    }
   }
 
   return (
@@ -30,8 +54,10 @@ const RoutineCard = ({
             </p>
             <div className='card-actions justify-end'>
               <button
-                onClick={handleViewRoutine}
-                className='btn btn-outline btn-error'
+                onClick={() =>
+                  deleteRoutine().then(() => setLoadingRoutines(false))
+                }
+                className={`btn btn-outline btn-error ${loadingRoutines ? 'loading loading-spinner' : ''}`}
               >
                 delete
               </button>
