@@ -2,7 +2,7 @@
 import React from 'react'
 import Image from 'next/image'
 import LogoImage from '../assets/Logo_image.png'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 
 const Account = () => {
   const { data: session } = useSession()

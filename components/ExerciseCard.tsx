@@ -5,7 +5,6 @@ import { useExerciseStore } from '../stores/exercise'
 import { useRouter } from 'next/navigation'
 import AddExerciseModal from './AddExerciseModal'
 import { useSession } from 'next-auth/react'
-import Link from 'next/link'
 
 const ExerciseCard = ({
   exercise,
