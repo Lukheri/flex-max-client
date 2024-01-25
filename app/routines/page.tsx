@@ -18,10 +18,6 @@ const Routines = () => {
 
   useEffect(() => {
     getRoutines()
-    setUserRoutines(
-      routines.filter((routine) => routine.userEmail === session?.user?.email),
-    )
-    console.log(routines)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
