@@ -12,7 +12,6 @@ const Navbar = () => {
         <Link href={'/'}>
           <Image className='rounded-lg' src={Logo} alt='logo' height={48} />
         </Link>
-
         <NavbarLinks />
       </div>
       <NavbarUser />

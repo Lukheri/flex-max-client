@@ -25,7 +25,7 @@ const NavbarUser = () => {
       ) : (
         <div className='navbar-end flex gap-4'>
           <Link href={'/login'} className='btn btn-outline btn-accent'>
-            Log in
+            Login
           </Link>
           <Link href={'/register'} className='btn btn-accent'>
             Sign up
