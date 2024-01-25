@@ -72,7 +72,13 @@ const Routines = () => {
             <form className='flex gap-4' method='dialog'>
               <button className='btn btn-outline btn-error'>Cancel</button>
               <button
-                onClick={() => handleCreateRoutine().then(() => getRoutines())}
+                onClick={() =>
+                  handleCreateRoutine().then(() => {
+                    getRoutines()
+                    setName('')
+                    setDescription('')
+                  })
+                }
                 className='btn btn-accent'
               >
                 Create
