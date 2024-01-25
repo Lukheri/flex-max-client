@@ -21,6 +21,12 @@ const RoutineCard = ({
   } = useRoutineStore()
   const router = useRouter()
 
+  const handleViewRoutine = () => {
+    // setRoutine(routine)
+    // router.push(`/routines/${routine.name}`)
+    console.log(routine)
+  }
+
   const deleteRoutine = async () => {
     setLoadingRoutines(true)
     try {
@@ -55,12 +61,9 @@ const RoutineCard = ({
               >
                 delete
               </button>
-              <Link
-                href={`/routines/${routine['_id']}`}
-                className='btn btn-neutral'
-              >
+              <button onClick={handleViewRoutine} className='btn btn-neutral'>
                 View Routine
-              </Link>
+              </button>
             </div>
           </div>
         </div>
