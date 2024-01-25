@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { connectMongoDB } from "@/lib/mongodb";
 import User from "@/models/user";
 import bcrypt from 'bcryptjs'
 
-export async function POST(req: { json: () => PromiseLike<{ userName: string; email: string; password: string }> | { userName: string; email: string; password: string } }){
+export async function POST(req: NextRequest){
     try {
         const {userName, email, password} = await req.json()
         const hashedPassword = await bcrypt.hash(password, 10)
