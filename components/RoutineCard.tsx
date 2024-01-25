@@ -29,7 +29,10 @@ const RoutineCard = ({
               {routine.description}
             </p>
             <div className='card-actions justify-end'>
-              <button onClick={handleViewRoutine} className='btn btn-error'>
+              <button
+                onClick={handleViewRoutine}
+                className='btn btn-outline btn-error'
+              >
                 delete
               </button>
               <button onClick={handleViewRoutine} className='btn btn-neutral'>

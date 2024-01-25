@@ -25,6 +25,35 @@ const Routines = () => {
     setDescription(event.target.value as string)
   }
 
+  const handleCreateRoutine = async () => {
+    const newRoutine = {
+      name: name,
+      description: description,
+      exercises: [],
+    }
+
+    addRoutine(newRoutine)
+
+    try {
+      const createRoutine = await fetch('api/routine/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newRoutine),
+      })
+
+      if (createRoutine.ok) {
+        setName('')
+        setDescription('')
+      } else {
+        console.log('Create routine failed Failed')
+      }
+    } catch (error) {
+      console.log('Error fetching create routine', error)
+    }
+  }
+
   return (
     <div className='m-16 flex flex-wrap items-center justify-start gap-16'>
       <div
@@ -43,27 +72,20 @@ const Routines = () => {
             type='text'
             placeholder='Enter Name'
             className='input input-bordered input-accent w-full'
+            value={name}
             onChange={handleNameChange}
           />
           <br />
           <textarea
             className='textarea textarea-accent mt-6 w-full'
             placeholder='Routine description'
+            value={description}
             onChange={handleDescriptionChange}
           ></textarea>
           <div className='modal-action'>
             <form className='flex gap-4' method='dialog'>
               <button className='btn btn-outline btn-error'>Cancel</button>
-              <button
-                onClick={() =>
-                  addRoutine({
-                    name: name,
-                    description: description,
-                    exercises: [],
-                  })
-                }
-                className='btn btn-accent'
-              >
+              <button onClick={handleCreateRoutine} className='btn btn-accent'>
                 Create
               </button>
             </form>
