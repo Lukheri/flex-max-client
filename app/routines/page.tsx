@@ -5,16 +5,25 @@ import add from '../assets/add.png'
 import { useRoutineStore } from '@/stores/routine'
 import RoutineCard from '@/components/RoutineCard'
 import { Routine } from '../constants/types'
+import { useSession } from 'next-auth/react'
 
 const Routines = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [name, setName] = useState<string>('')
   const [description, setDescription] = useState<string>('')
+  const [userRoutines, setUserRoutines] = useState<Routine[]>([])
 
   const { routines, addRoutine, getRoutines } = useRoutineStore()
+  const { data: session } = useSession()
 
   useEffect(() => {
-    getRoutines()
+    getRoutines().then(() =>
+      setUserRoutines(
+        routines.filter(
+          (routine) => routine.userEmail === session?.user?.email,
+        ),
+      ),
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -35,6 +44,7 @@ const Routines = () => {
       name: name,
       description: description,
       exercises: [],
+      userEmail: session?.user?.email,
     }
 
     await addRoutine(newRoutine)
@@ -74,7 +84,14 @@ const Routines = () => {
               <button
                 onClick={() =>
                   handleCreateRoutine().then(() => {
-                    getRoutines()
+                    getRoutines().then(() =>
+                      setUserRoutines(
+                        routines.filter(
+                          (routine) =>
+                            routine.userEmail === session?.user?.email,
+                        ),
+                      ),
+                    )
                     setName('')
                     setDescription('')
                   })
@@ -87,8 +104,8 @@ const Routines = () => {
           </div>
         </div>
       </dialog>
-      {!!routines.length &&
-        routines.map((routine: Routine, index: number) => (
+      {!!userRoutines.length &&
+        userRoutines.map((routine: Routine, index: number) => (
           <RoutineCard
             key={routine.name + index}
             routine={routine}

@@ -18,11 +18,11 @@ export async function GET(){
 
 export async function POST(req: NextRequest){
     try {
-        const {name, description, exercises} = await req.json()
+        const {name, description, exercises, userEmail} = await req.json()
 
         await connectMongoDB()
 
-        await Routine.create({name, description, exercises})
+        await Routine.create({name, description, exercises, userEmail})
         
         return NextResponse.json({message: "Routine created"}, {status:201})
     } catch (error) {

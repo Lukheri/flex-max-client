@@ -17,7 +17,8 @@ export const useRoutineStore = create<RoutineState>()((set) => ({
     selectedRoutine: {
         name: "",
         description: "",
-        exercises: []
+        exercises: [],
+        userEmail: ""
     },
     addRoutine: async (routine: Routine) => {
         try {

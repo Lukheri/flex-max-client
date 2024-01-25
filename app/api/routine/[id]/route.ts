@@ -6,7 +6,6 @@ export async function DELETE(req: NextRequest,{ params }: { params: { id: number
     try {
         await connectMongoDB()
 
-        console.log(params.id)
         await Routine.findByIdAndDelete(params.id)
         
         return NextResponse.json({message: "Routine deleted"}, {status:201})
