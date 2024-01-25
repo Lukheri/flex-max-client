@@ -27,7 +27,7 @@ export const useRoutineStore = create<RoutineState>()((set) => ({
     },
     addRoutine: async (routine: Routine) => {
         try {
-            const createRoutine = await fetch('api/routine', {
+            const createRoutine = await fetch('/api/routine', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
